@@ -4,7 +4,7 @@ from http import HTTPStatus
 from middlewares.auth import authMW
 
 
-userBP = Blueprint('session-controller', __name__, url_prefix='/api/user')
+userBP = Blueprint('user-controller', __name__, url_prefix='/user')
 
 
 @userBP.route("/", methods=['POST'])
@@ -15,6 +15,7 @@ def register():
     password = data.get('password')
     try:
         User.create_user(username=username, email=email, password=password)
+        return make_response({}, HTTPStatus.ACCEPTED)
     except Exception as e:
         print(e)
         return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
