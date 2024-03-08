@@ -1,0 +1,19 @@
+from flask import request, make_response
+from http import HTTPStatus
+import jwt
+
+
+def authMW(func):
+    def wrapper(*args, **kwargs):
+        authHeader = request.headers.get('Authorization')
+        if not authHeader:
+            return make_response({}, HTTPStatus.UNAUTHORIZED)
+        token = authHeader.split(' ')[1]
+        data = jwt.decode(token, 'secret', algorithms=['HS256'])
+        try:
+            userId = int(data.get('id'))
+            return func(userId, *args, **kwargs)
+        except Exception as e:
+            return make_response({}, HTTPStatus.UNAUTHORIZED)
+
+    return wrapper
