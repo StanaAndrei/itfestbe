@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:5173'])
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://app:password@192.168.56.101:3306/itfest"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS '] = False
