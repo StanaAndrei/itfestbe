@@ -14,3 +14,7 @@ class User(db.Model):
         db.session.add(new_user)
         db.session.commit()
         return new_user
+
+    def as_dict(self):
+        excluded_attributes = ["password"]  # Add any other attributes you want to exclude
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns if c.name not in excluded_attributes}

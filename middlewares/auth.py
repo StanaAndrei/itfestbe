@@ -14,6 +14,7 @@ def authMW(func):
             userId = int(data.get('id'))
             return func(userId, *args, **kwargs)
         except Exception as e:
+            print(e)
             return make_response({}, HTTPStatus.UNAUTHORIZED)
 
     return wrapper

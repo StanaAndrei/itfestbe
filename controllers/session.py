@@ -12,13 +12,10 @@ def login():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    print(email + " " + password)
     try:
         user = User.query.filter_by(email=email, password=password).first()
-        print(user)
         if user:
-            id = user.id
-            eId = jwt.encode({"id": str(id)}, 'secret', algorithm='HS256')
+            eId = jwt.encode({"id": str(user.id)}, 'secret', algorithm='HS256')
             return make_response({"token": str(eId)}, HTTPStatus.OK)
         else:
             return make_response({}, HTTPStatus.BAD_REQUEST)
