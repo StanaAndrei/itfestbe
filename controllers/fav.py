@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, jsonify, make_response, request
+from flask import Blueprint, make_response, request
 from models.fav import Fav
 from http import HTTPStatus
 from middlewares.auth import authMW
@@ -47,9 +47,15 @@ def addFav(userId):
 def removeFav(userId):
     data = request.get_json()
     prodId = data.get('prodId')
+    print('---------===============')
     try:
-        Fav.query.filter_by(user_id=userId, prod_id=prodId).delete()
-        return make_response({}, HTTPStatus.OK)
+        target = Fav.query.filter_by(user_id=userId, prod_id=prodId).first()
+        if target:
+            db.session.delete(target)
+            db.session.commit()
+            return make_response({}, HTTPStatus.OK)
+        else:
+            return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
     except Exception as e:
         print(e)
         return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
