@@ -2,8 +2,6 @@ from flask import Blueprint, Flask, jsonify, make_response, request
 from models.user import User
 from http import HTTPStatus
 import jwt
-from flask_cors import CORS, cross_origin
-
 
 sessionBP = Blueprint('session-controller', __name__, url_prefix='/session')
 
