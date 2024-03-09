@@ -2,6 +2,7 @@ from flask import Blueprint, Flask, jsonify, make_response, request
 from models.product import Product
 from http import HTTPStatus
 from middlewares.auth import authMW
+from ai.ai import callAI
 
 productBP = Blueprint('product-controller', __name__, url_prefix='/product')
 
@@ -23,6 +24,10 @@ def addProduct(userId):
     fiber_100g_value = json_data.get('fiber_100g')
     salt_100g_value = json_data.get('salt_100g')
     category = json_data.get('category')
+    health_score = callAI([
+        energy_100g_value, proteins_100g_value, carbohydrates_100g_value, sugars_100g_value, fat_100g_value,
+        saturated_fat_100g_value, fiber_100g_value, salt_100g_value
+    ])
 
     try:
         Product.create(
@@ -38,7 +43,8 @@ def addProduct(userId):
             saturated_fat_100g=saturated_fat_100g_value,
             fiber_100g=fiber_100g_value,
             salt_100g=salt_100g_value,
-            category=category
+            category=category,
+            health_score=health_score
         )
         return make_response({}, HTTPStatus.CREATED)
     except Exception as e:

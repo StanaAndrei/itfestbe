@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 print(tf.__version__ + "-----------------------------------")
 
 # Citirea datelor din fisierul JSON
-with open("products.json") as json_file:
+with open("./ai/products.json") as json_file:
     data = json.load(json_file)
 
 # Extrage datele de nutrienți și scorurile de sănătate în liste separate
@@ -38,7 +38,8 @@ nutrients_scaled = scaler.fit_transform(nutrients_array)
 health_scores_scaled = health_score_scaler.fit_transform(health_scores_array.reshape(-1, 1))
 
 # Împărțirea datelor în seturile de antrenare și de testare
-x_train, x_test, y_train, y_test = train_test_split(nutrients_scaled, health_scores_scaled, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(nutrients_scaled, health_scores_scaled, test_size=0.2,
+                                                    random_state=42)
 
 # x_train, x_test, y_train, y_test = train_test_split(nutrients_array, health_scores_array, test_size=0.2, random_state=42)
 
@@ -48,9 +49,9 @@ x_test_tensor = tf.constant(x_test, dtype=tf.float32)
 y_train_tensor = tf.constant(y_train, dtype=tf.float32)
 y_test_tensor = tf.constant(y_test, dtype=tf.float32)
 
-#MODEL-------------------------------------------
+# MODEL-------------------------------------------
 
-#1 Crearea modelului
+# 1 Crearea modelului
 model_1 = tf.keras.Sequential([
     tf.keras.layers.Dense(128, activation='relu', input_shape=(8,)),
     tf.keras.layers.Dense(64, activation='relu'),
@@ -58,21 +59,20 @@ model_1 = tf.keras.Sequential([
 
 ])
 
-#2 Compilarea modelului
+# 2 Compilarea modelului
 model_1.compile(optimizer='adam',
-              loss='mean_squared_error',
-              metrics=['mae'])
-
+                loss='mean_squared_error',
+                metrics=['mae'])
 
 # 3 Model fit
 model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
 
-#4 Evaluate the model 
+# 4 Evaluate the model
 print("EVALUATE THE MODEL")
 print(model_1.evaluate(x_test, y_test))
 
 # Hardcodează setul de date de intrare
-input_data = np.array([[151,0.7,3.7,3.5,2,0.5,0.5,0.08]])
+input_data = np.array([[151, 0.7, 3.7, 3.5, 2, 0.5, 0.5, 0.08]])
 
 # Normalizează datele de intrare folosind scalerul salvat
 input_data_scaled = scaler.transform(input_data)
@@ -83,18 +83,17 @@ prediction_scaled = model_1.predict(input_data_scaled)
 # Denormalizează predicția pentru a obține valoarea în intervalul original
 prediction = health_score_scaler.inverse_transform(prediction_scaled)
 
-
 # Afișează predicția denormalizată
 print("Predicția (denormalizată):", prediction.flatten()[0])
 
-def callAI():
+
+def callAI(arr):  # [151,0.7,3.7,3.5,2,0.5,0.5,0.08]
     model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
-    input_data = np.array([[151,0.7,3.7,3.5,2,0.5,0.5,0.08]])
+    input_data = np.array([arr])
     input_data_scaled = scaler.transform(input_data)
     prediction_scaled = model_1.predict(input_data_scaled)
     prediction = health_score_scaler.inverse_transform(prediction_scaled)
     return round(prediction)
 
 
-model_1.save('model_1')
-
+model_1.save('ai/model_1')

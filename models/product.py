@@ -27,7 +27,8 @@ class Product(db.Model):
             cls, user_id,
             name, description,
             image, energy_100g,
-            proteins_100g, carbohydrates_100g, sugars_100g, fat_100g, saturated_fat_100g, fiber_100g, salt_100g, category
+            proteins_100g, carbohydrates_100g, sugars_100g, fat_100g, saturated_fat_100g, fiber_100g, salt_100g,
+            category, health_score
     ):
         new_product = cls(
             user_id=user_id,
@@ -42,7 +43,8 @@ class Product(db.Model):
             saturated_fat_100g=saturated_fat_100g,
             fiber_100g=fiber_100g,
             salt_100g=salt_100g,
-            category=category
+            category=category,
+            health_score=health_score
         )
         db.session.add(new_product)
         db.session.commit()
