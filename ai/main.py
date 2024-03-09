@@ -87,5 +87,14 @@ prediction = health_score_scaler.inverse_transform(prediction_scaled)
 # Afișează predicția denormalizată
 print("Predicția (denormalizată):", prediction.flatten()[0])
 
+def callAI():
+    model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
+    input_data = np.array([[151,0.7,3.7,3.5,2,0.5,0.5,0.08]])
+    input_data_scaled = scaler.transform(input_data)
+    prediction_scaled = model_1.predict(input_data_scaled)
+    prediction = health_score_scaler.inverse_transform(prediction_scaled)
+    return round(prediction)
+
+
 model_1.save('model_1')
 
