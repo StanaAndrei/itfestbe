@@ -40,3 +40,16 @@ def addFav(userId):
     except Exception as e:
         print(e)
         return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
+
+
+@favBP.route('/', methods=['DELETE'])
+@authMW
+def removeFav(userId):
+    data = request.get_json()
+    prodId = data.get('prodId')
+    try:
+        Fav.query.filter_by(user_id=userId, prod_id=prodId).delete()
+        return make_response({}, HTTPStatus.OK)
+    except Exception as e:
+        print(e)
+        return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
