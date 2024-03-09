@@ -1,9 +1,11 @@
 from flask import request, make_response
 from http import HTTPStatus
 import jwt
+from functools import wraps
 
 
 def authMW(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         authHeader = request.headers.get('Authorization')
         if not authHeader:

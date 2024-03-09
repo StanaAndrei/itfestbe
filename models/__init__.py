@@ -8,4 +8,5 @@ def init_db(app):
         db.init_app(app)
         from .user import User
         from .product import Product
+        from .fav import Fav
         db.create_all()
