@@ -65,26 +65,27 @@ model_1.compile(optimizer='adam',
                 metrics=['mae'])
 
 # 3 Model fit
-model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
+# model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
 
 # 4 Evaluate the model
-print("EVALUATE THE MODEL")
-print(model_1.evaluate(x_test, y_test))
+
+# print("EVALUATE THE MODEL")
+# print(model_1.evaluate(x_test, y_test))
 
 # Hardcodează setul de date de intrare
-input_data = np.array([[151, 0.7, 3.7, 3.5, 2, 0.5, 0.5, 0.08]])
+# input_data = np.array([[151, 0.7, 3.7, 3.5, 2, 0.5, 0.5, 0.08]])
 
 # Normalizează datele de intrare folosind scalerul salvat
-input_data_scaled = scaler.transform(input_data)
+# input_data_scaled = scaler.transform(input_data)
 
 # Fă predicția folosind modelul
-prediction_scaled = model_1.predict(input_data_scaled)
+# prediction_scaled = model_1.predict(input_data_scaled)
 
 # Denormalizează predicția pentru a obține valoarea în intervalul original
-prediction = health_score_scaler.inverse_transform(prediction_scaled)
+# prediction = health_score_scaler.inverse_transform(prediction_scaled)
 
 # Afișează predicția denormalizată
-print("Predicția (denormalizată):", prediction.flatten()[0])
+# print("Predicția (denormalizată):", prediction.flatten()[0])
 
 
 def callAI(arr):  # [151,0.7,3.7,3.5,2,0.5,0.5,0.08]
@@ -93,7 +94,7 @@ def callAI(arr):  # [151,0.7,3.7,3.5,2,0.5,0.5,0.08]
     input_data_scaled = scaler.transform(input_data)
     prediction_scaled = model_1.predict(input_data_scaled)
     prediction = health_score_scaler.inverse_transform(prediction_scaled)
-    return round(prediction)
+    return round(prediction[0][0])
 
 
-model_1.save('ai/model_1')
+# model_1.save('model_1')
