@@ -8,7 +8,7 @@ class Product(db.Model):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
-    name = Column(String(30))
+    name = Column(String(100))
     description = Column(String(500))
     image = Column(LONGTEXT)
     energy_100g = Column(Float, default=.0)
