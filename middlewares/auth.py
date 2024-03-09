@@ -11,7 +11,6 @@ def authMW(func):
         if not authHeader:
             return make_response({}, HTTPStatus.UNAUTHORIZED)
         token = authHeader.split(' ')[1]
-        print(authHeader)
         data = jwt.decode(token, 'secret', algorithms=['HS256'])
         try:
             userId = int(data.get('id'))
