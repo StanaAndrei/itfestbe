@@ -10596,7 +10596,7 @@
     },
     {
         "nutrients": {
-            "energy_100g": 841,
+            "energy_100g": 820,
             "proteins_100g": 11,
             "carbohydrates_100g": 0.9,
             "sugars_100g": 0.3,
@@ -16811,15 +16811,15 @@
     {
         "nutrients": {
             "energy_100g": 1612,
-            "proteins_100g": 8.6,
-            "carbohydrates_100g": 73,
-            "sugars_100g": 25,
-            "fat_100g": 4.6,
-            "saturated-fat_100g": 1.3,
-            "fiber_100g": 8,
+            "proteins_100g": 8.8,
+            "carbohydrates_100g": 73.6,
+            "sugars_100g": 22.4,
+            "fat_100g": 4.8,
+            "saturated-fat_100g": 2,
+            "fiber_100g": 7.5,
             "salt_100g": 0.22
         },
-        "health_score": 2
+        "health_score": 1
     },
     {
         "nutrients": {
@@ -23583,14 +23583,14 @@
     },
     {
         "nutrients": {
-            "energy_100g": 2050,
+            "energy_100g": 2065,
             "proteins_100g": 6.4,
-            "carbohydrates_100g": 66,
-            "sugars_100g": 41,
-            "fat_100g": 22,
-            "saturated-fat_100g": 14,
-            "fiber_100g": 1.6,
-            "salt_100g": 0.94
+            "carbohydrates_100g": 64,
+            "sugars_100g": 38,
+            "fat_100g": 23,
+            "saturated-fat_100g": 13,
+            "fiber_100g": 2,
+            "salt_100g": 0.71
         },
         "health_score": 5
     },

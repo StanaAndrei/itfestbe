@@ -24,7 +24,7 @@ health_scores_array = np.array(health_scores)
 tf.random.set_seed(42)
 
 # Setarea pentru callback pentru model
-callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=8)
+callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5)
 
 ## NORMALIZAREA DATELOR
 
@@ -64,15 +64,15 @@ model_1.compile(optimizer='adam',
               metrics=['mae'])
 
 
-#3 Model fit
-model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=1600, callbacks=[tf.keras.callbacks.EarlyStopping(patience=8)])
+# 3 Model fit
+model_1.fit(x_train_tensor, y_train_tensor, validation_split=0.2, epochs=200, callbacks=[callback])
 
 #4 Evaluate the model 
 print("EVALUATE THE MODEL")
 print(model_1.evaluate(x_test, y_test))
 
 # Hardcodează setul de date de intrare
-input_data = np.array([[1740,9.6,72,13,8.7,1.5,3.9,1.3]])
+input_data = np.array([[151,0.7,3.7,3.5,2,0.5,0.5,0.08]])
 
 # Normalizează datele de intrare folosind scalerul salvat
 input_data_scaled = scaler.transform(input_data)
