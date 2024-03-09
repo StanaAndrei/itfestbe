@@ -22,7 +22,7 @@ def addProduct(userId):
     saturated_fat_100g_value = json_data.get('saturated_fat_100g')
     fiber_100g_value = json_data.get('fiber_100g')
     salt_100g_value = json_data.get('salt_100g')
-    health_score = json_data.get('health_score')
+    category = json_data.get('category')
 
     try:
         Product.create(
@@ -38,7 +38,7 @@ def addProduct(userId):
             saturated_fat_100g=saturated_fat_100g_value,
             fiber_100g=fiber_100g_value,
             salt_100g=salt_100g_value,
-            health_score=health_score
+            category=category
         )
         return make_response({}, HTTPStatus.CREATED)
     except Exception as e:
@@ -46,3 +46,16 @@ def addProduct(userId):
         return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
 
+@productBP.route('/')
+def getProducts():
+    products = Product.query.all()
+    ans = []
+    for product in products:
+        ans.append(product.as_dict())
+    return make_response({"products": ans}, HTTPStatus.OK)
+
+
+@productBP.route('/<name>')
+def getProduct(name):
+    product = Product.query.filter_by(name=name).first()
+    return make_response(product.as_dict(), HTTPStatus.OK)

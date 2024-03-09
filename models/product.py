@@ -11,23 +11,23 @@ class Product(db.Model):
     name = Column(String(30))
     description = Column(String(500))
     image = Column(LONGTEXT)
-    energy_100g = Column(Float)
-    proteins_100g = Column(Float)
-    carbohydrates_100g = Column(Float)
-    sugars_100g = Column(Float)
-    fat_100g = Column(Float)
-    saturated_fat_100g = Column(Float)
-    fiber_100g = Column(Float)
-    salt_100g = Column(Float)
-    health_score = Column(Float)
+    energy_100g = Column(Float, default=.0)
+    proteins_100g = Column(Float, default=.0)
+    carbohydrates_100g = Column(Float, default=.0)
+    sugars_100g = Column(Float, default=.0)
+    fat_100g = Column(Float, default=.0)
+    saturated_fat_100g = Column(Float, default=.0)
+    fiber_100g = Column(Float, default=.0)
+    salt_100g = Column(Float, default=.0)
+    health_score = Column(Float, default=.0)
+    category = Column(String(20))
 
     @classmethod
     def create(
             cls, user_id,
             name, description,
             image, energy_100g,
-            proteins_100g, carbohydrates_100g, sugars_100g, fat_100g, saturated_fat_100g, fiber_100g, salt_100g,
-            health_score
+            proteins_100g, carbohydrates_100g, sugars_100g, fat_100g, saturated_fat_100g, fiber_100g, salt_100g, category
     ):
         new_product = cls(
             user_id=user_id,
@@ -42,7 +42,7 @@ class Product(db.Model):
             saturated_fat_100g=saturated_fat_100g,
             fiber_100g=fiber_100g,
             salt_100g=salt_100g,
-            health_score=health_score
+            category=category
         )
         db.session.add(new_product)
         db.session.commit()
@@ -50,3 +50,5 @@ class Product(db.Model):
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
