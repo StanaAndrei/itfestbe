@@ -54,14 +54,20 @@ def addProduct(userId):
 
 @productBP.route('/')
 def getProducts():
-    products = Product.query.all()
-    ans = []
-    for product in products:
-        ans.append(product.as_dict())
-    return make_response({"products": ans}, HTTPStatus.OK)
+    try:
+        products = Product.query.all()
+        ans = []
+        for product in products:
+            ans.append(product.as_dict())
+        return make_response({"products": ans}, HTTPStatus.OK)
+    except Exception as e:
+        return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
 
 @productBP.route('/<name>')
 def getProduct(name):
-    product = Product.query.filter_by(name=name).first()
-    return make_response(product.as_dict(), HTTPStatus.OK)
+    try:
+        product = Product.query.filter_by(name=name).first()
+        return make_response(product.as_dict(), HTTPStatus.OK)
+    except Exception as e:
+        return make_response({}, HTTPStatus.INTERNAL_SERVER_ERROR)
